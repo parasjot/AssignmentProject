@@ -8,5 +8,5 @@ import retrofit2.http.GET
 interface ClosedPrApi {
 
     @GET("parasjot/NaviAssignmentProject/pulls?state=closed")
-    suspend fun getClosedPrData() : Response<ClosedPrModel>
+    suspend fun getClosedPrData(): Response<ClosedPrModel>
 }

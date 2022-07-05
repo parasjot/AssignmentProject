@@ -10,12 +10,10 @@ import com.example.naviassignmentproject.R
 import com.example.naviassignmentproject.model.ClosedPrModelItem
 import kotlinx.android.synthetic.main.rv_closed_pr_item.view.*
 
-class ClosedPrRecyclerViewAdapter : RecyclerView.Adapter<ClosedPrViewHolder>() {
-    private lateinit var closedPrList : List<ClosedPrModelItem>
+class ClosedPrRecyclerViewAdapter(closedPrList: List<ClosedPrModelItem>) :
+    RecyclerView.Adapter<ClosedPrViewHolder>() {
+    private var closedPrList: List<ClosedPrModelItem> = closedPrList
 
-    companion object{
-
-    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClosedPrViewHolder {
         val inflatedView = parent.inflate(R.layout.rv_closed_pr_item, false)
         return ClosedPrViewHolder(inflatedView)
@@ -27,7 +25,7 @@ class ClosedPrRecyclerViewAdapter : RecyclerView.Adapter<ClosedPrViewHolder>() {
         val photoUrl = closedPrModelItem.user.avatar_url
         val createDate = closedPrModelItem.created_at
         val closedDate = closedPrModelItem.closed_at
-        val userName = closedPrModelItem.body
+        val userName = closedPrModelItem.user.login
         val title = closedPrModelItem.title
         holder.itemView.createdDate.text = createDate
         holder.itemView.closedDate.text = closedDate
@@ -45,10 +43,6 @@ class ClosedPrRecyclerViewAdapter : RecyclerView.Adapter<ClosedPrViewHolder>() {
 
     override fun getItemCount(): Int {
         return closedPrList.size
-    }
-
-    fun setClosedPrList(list: List<ClosedPrModelItem>) {
-        closedPrList = list;
     }
 }
 

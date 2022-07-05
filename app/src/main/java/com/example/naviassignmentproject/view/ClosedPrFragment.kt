@@ -41,15 +41,14 @@ class ClosedPrFragment : Fragment() {
     }
 
     private fun setRecyclerView(list: List<ClosedPrModelItem>) {
-        rv_closed_pr.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        val closedPrAdapter = ClosedPrRecyclerViewAdapter()
-        closedPrAdapter.setClosedPrList(list)
-        rv_closed_pr.adapter = ClosedPrRecyclerViewAdapter()
+        rv_closed_pr.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        rv_closed_pr.adapter = ClosedPrRecyclerViewAdapter(list)
     }
 
     private fun observerClosedPrList() {
         closedPrViewModel.closedPrList.observe(viewLifecycleOwner, Observer {
-            if(it != null && it.isNotEmpty())
+            if (it != null && it.isNotEmpty())
                 setRecyclerView(it)
             else {
                 //show view with no data available
