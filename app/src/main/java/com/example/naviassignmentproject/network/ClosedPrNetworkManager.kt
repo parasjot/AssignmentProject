@@ -13,9 +13,9 @@ object ClosedPrNetworkManager {
     private val closedPrApi = RetrofitHelper.getInstance().create(ClosedPrApi::class.java)
 
     //send request params
-    open suspend fun getClosedPrList() : List<ClosedPrModelItem>? {
-        val result : Response<ClosedPrModel> = closedPrApi.getClosedPrData()
-        return if(result.isSuccessful){
+    open suspend fun getClosedPrList(): List<ClosedPrModelItem>? {
+        val result: Response<ClosedPrModel> = closedPrApi.getClosedPrData()
+        return if (result.isSuccessful) {
             Log.e("Paras ", result.body().toString())
             result.body()
         } else {
