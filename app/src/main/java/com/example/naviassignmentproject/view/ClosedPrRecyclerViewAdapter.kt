@@ -27,8 +27,8 @@ class ClosedPrRecyclerViewAdapter(closedPrList: List<ClosedPrModelItem>) :
         val closedDate = closedPrModelItem.closed_at
         val userName = closedPrModelItem.user.login
         val title = closedPrModelItem.title
-        holder.itemView.createdDate.text = createDate
-        holder.itemView.closedDate.text = closedDate
+        holder.itemView.createdDate.text = "Created: $createDate"
+        holder.itemView.closedDate.text = "Closed: $closedDate"
         holder.itemView.title.text = title
         holder.itemView.userName.text = userName
         val url = if (photoUrl != null) "$photoUrl?w=360" else null //1
