@@ -1,7 +1,7 @@
 package com.example.naviassignmentproject.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.naviassignmentproject.R
 
 class MainActivity : AppCompatActivity() {

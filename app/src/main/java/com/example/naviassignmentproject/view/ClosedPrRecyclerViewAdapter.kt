@@ -44,6 +44,10 @@ class ClosedPrRecyclerViewAdapter(closedPrList: List<ClosedPrModelItem>) :
     override fun getItemCount(): Int {
         return closedPrList.size
     }
+
+    open fun setClosedPrList(list: List<ClosedPrModelItem>) {
+        closedPrList = list
+    }
 }
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {

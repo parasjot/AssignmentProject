@@ -3,10 +3,6 @@ package com.example.naviassignmentproject.network
 import android.util.Log
 import com.example.naviassignmentproject.model.ClosedPrModel
 import com.example.naviassignmentproject.model.ClosedPrModelItem
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.Response
 
 object ClosedPrNetworkManager {
