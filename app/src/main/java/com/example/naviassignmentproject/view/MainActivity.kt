@@ -9,16 +9,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-
         //add a fragment, to make future enhancements easier
         var transaction = supportFragmentManager.beginTransaction()
         transaction.add(R.id.fragment_container_view_tag, ClosedPrFragment())
         transaction.commit()
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 }

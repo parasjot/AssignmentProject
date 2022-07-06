@@ -47,6 +47,7 @@ class ClosedPrRecyclerViewAdapter(closedPrList: List<ClosedPrModelItem>) :
 
     open fun setClosedPrList(list: List<ClosedPrModelItem>) {
         closedPrList = list
+        notifyDataSetChanged()
     }
 }
 

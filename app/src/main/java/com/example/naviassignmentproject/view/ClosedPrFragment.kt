@@ -17,11 +17,16 @@ import kotlinx.android.synthetic.main.fragment_closedpr.*
 
 class ClosedPrFragment : Fragment() {
     private lateinit var closedPrViewModel: ClosedPrViewModel
+    private lateinit var closedPrRecyclerViewAdapter: ClosedPrRecyclerViewAdapter
 
     private fun getClosedPrViewModel(): ClosedPrViewModel {
         return ViewModelProvider(requireActivity())[ClosedPrViewModel::class.java]
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        closedPrViewModel = getClosedPrViewModel()
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,7 +37,6 @@ class ClosedPrFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        closedPrViewModel = getClosedPrViewModel()
         observerClosedPrList()
         if (context != null && CommonUtils.isOnline(context!!)) {
             closedPrViewModel.getClosedPrList()
@@ -43,17 +47,26 @@ class ClosedPrFragment : Fragment() {
     }
 
     private fun showTryAgainUi() {
-        try_again.visibility = View.VISIBLE
         rv_closed_pr.visibility = View.GONE
-        try_again.setOnClickListener(View.OnClickListener {
-            closedPrViewModel.getClosedPrList()
-        })
+        try_again.apply {
+            visibility = View.VISIBLE
+            setOnClickListener(View.OnClickListener {
+                closedPrViewModel.getClosedPrList()
+            })
+        }
     }
 
     private fun setRecyclerView(list: List<ClosedPrModelItem>) {
-        rv_closed_pr.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        rv_closed_pr.adapter = ClosedPrRecyclerViewAdapter(list)
+        if(!::closedPrRecyclerViewAdapter.isInitialized) {
+            closedPrRecyclerViewAdapter = ClosedPrRecyclerViewAdapter(list)
+            rv_closed_pr.apply {
+                layoutManager =
+                    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                adapter = closedPrRecyclerViewAdapter
+            }
+        } else {
+            closedPrRecyclerViewAdapter.setClosedPrList(list)
+        }
     }
 
     private fun observerClosedPrList() {
@@ -63,7 +76,7 @@ class ClosedPrFragment : Fragment() {
                 rv_closed_pr.visibility = View.VISIBLE
                 setRecyclerView(it)
             } else {
-                showTryAgainUi()
+                showTryAgainUi() 
             }
         })
     }
