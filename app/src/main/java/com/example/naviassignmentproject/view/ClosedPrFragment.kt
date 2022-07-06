@@ -4,15 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.naviassignmentproject.R
-import com.example.naviassignmentproject.model.ClosedPrModel
 import com.example.naviassignmentproject.model.ClosedPrModelItem
+import com.example.naviassignmentproject.utils.CommonUtils
 import com.example.naviassignmentproject.viewmodel.ClosedPrViewModel
 import kotlinx.android.synthetic.main.fragment_closedpr.*
 
@@ -29,7 +27,6 @@ class ClosedPrFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         return inflater.inflate(R.layout.fragment_closedpr, container, false)
     }
 
@@ -37,7 +34,20 @@ class ClosedPrFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         closedPrViewModel = getClosedPrViewModel()
         observerClosedPrList()
-        closedPrViewModel.getClosedPrList()
+        if (context != null && CommonUtils.isOnline(context!!)) {
+            closedPrViewModel.getClosedPrList()
+        } else {
+            //try again ui
+            showTryAgainUi()
+        }
+    }
+
+    private fun showTryAgainUi() {
+        try_again.visibility = View.VISIBLE
+        rv_closed_pr.visibility = View.GONE
+        try_again.setOnClickListener(View.OnClickListener {
+            closedPrViewModel.getClosedPrList()
+        })
     }
 
     private fun setRecyclerView(list: List<ClosedPrModelItem>) {
@@ -48,11 +58,12 @@ class ClosedPrFragment : Fragment() {
 
     private fun observerClosedPrList() {
         closedPrViewModel.closedPrList.observe(viewLifecycleOwner, Observer {
-            if (it != null && it.isNotEmpty())
+            if (it != null && it.isNotEmpty()) {
+                try_again.visibility = View.GONE
+                rv_closed_pr.visibility = View.VISIBLE
                 setRecyclerView(it)
-            else {
-                //show view with no data available
-                Toast.makeText(context, "No data", Toast.LENGTH_LONG).show()
+            } else {
+                showTryAgainUi()
             }
         })
     }

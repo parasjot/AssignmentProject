@@ -1,7 +1,5 @@
 package com.example.naviassignmentproject.model
 
-import com.example.naviassignmentproject.model.Creator
-
 data class Milestone(
     val closed_at: String,
     val closed_issues: Int,

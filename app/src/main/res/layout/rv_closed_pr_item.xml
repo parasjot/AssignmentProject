@@ -3,20 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/userImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/title"/>
+        app:layout_constraintRight_toLeftOf="@+id/title" />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/userImage"
-        app:layout_constraintRight_toLeftOf="@id/closedDate"/>
+        app:layout_constraintRight_toLeftOf="@id/closedDate" />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
@@ -24,18 +27,20 @@
         app:layout_constraintLeft_toRightOf="@id/userImage"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/createdDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/title"
         app:layout_constraintLeft_toRightOf="@id/userImage"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent" />
+
     <TextView
         android:id="@+id/closedDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/createdDate"
         app:layout_constraintLeft_toRightOf="@id/userImage"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
