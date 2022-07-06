@@ -45,8 +45,10 @@ class ClosedPrFragment : Fragment() {
     private fun showTryAgainUi() {
         try_again.visibility = View.VISIBLE
         rv_closed_pr.visibility = View.GONE
+        progressbar.visibility = View.GONE
 
         try_again.setOnClickListener {
+            progressbar.visibility = View.VISIBLE
             closedPrViewModel.getClosedPrList()
         }
     }
@@ -61,6 +63,7 @@ class ClosedPrFragment : Fragment() {
         closedPrViewModel.closedPrList.observe(viewLifecycleOwner, Observer {
             if (it != null && it.isNotEmpty()) {
                 try_again.visibility = View.GONE
+                progressbar.visibility = View.GONE
                 rv_closed_pr.visibility = View.VISIBLE
                 setRecyclerView(it)
             } else {
