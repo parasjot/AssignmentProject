@@ -45,9 +45,10 @@ class ClosedPrFragment : Fragment() {
     private fun showTryAgainUi() {
         try_again.visibility = View.VISIBLE
         rv_closed_pr.visibility = View.GONE
-        try_again.setOnClickListener(View.OnClickListener {
+
+        try_again.setOnClickListener {
             closedPrViewModel.getClosedPrList()
-        })
+        }
     }
 
     private fun setRecyclerView(list: List<ClosedPrModelItem>) {
