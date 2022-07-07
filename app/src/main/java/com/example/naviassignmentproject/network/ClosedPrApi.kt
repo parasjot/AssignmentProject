@@ -8,5 +8,8 @@ import retrofit2.http.Path
 interface ClosedPrApi {
 
     @GET("{ownerName}/{repoName}/pulls?state=closed")
-    suspend fun getClosedPrData(@Path("ownerName") ownerName: String, @Path("repoName") repoName: String): Response<ClosedPrModel>
+    suspend fun getClosedPrData(
+        @Path("ownerName") ownerName: String,
+        @Path("repoName") repoName: String
+    ): Response<ClosedPrModel>
 }
