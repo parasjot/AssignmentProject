@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.fragment_closedpr.*
 
 class ClosedPrFragment : Fragment() {
     private lateinit var closedPrViewModel: ClosedPrViewModel
+    private lateinit var closedPrRecyclerViewAdapter: ClosedPrRecyclerViewAdapter
 
     private fun getClosedPrViewModel(): ClosedPrViewModel {
         return ViewModelProvider(requireActivity())[ClosedPrViewModel::class.java]
@@ -48,15 +49,25 @@ class ClosedPrFragment : Fragment() {
         progressbar.visibility = View.GONE
 
         try_again.setOnClickListener {
+            try_again.visibility = View.GONE
             progressbar.visibility = View.VISIBLE
             closedPrViewModel.getClosedPrList()
         }
     }
 
     private fun setRecyclerView(list: List<ClosedPrModelItem>) {
-        rv_closed_pr.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        rv_closed_pr.adapter = ClosedPrRecyclerViewAdapter(list)
+        if (!::closedPrRecyclerViewAdapter.isInitialized) {
+            rv_closed_pr.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            closedPrRecyclerViewAdapter = ClosedPrRecyclerViewAdapter(list)
+            rv_closed_pr.adapter = closedPrRecyclerViewAdapter
+            closedPrRecyclerViewAdapter.notifyDataSetChanged()
+            rv_closed_pr.scheduleLayoutAnimation()
+        } else {
+            closedPrRecyclerViewAdapter.setClosePrList(list)
+            closedPrRecyclerViewAdapter.notifyDataSetChanged()
+            rv_closed_pr.scheduleLayoutAnimation()
+        }
     }
 
     private fun observerClosedPrList() {
